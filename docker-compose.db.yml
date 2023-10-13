@@ -1,0 +1,22 @@
+version: '3.3'
+services:
+
+  postgres_service:
+    image: postgres:12-alpine
+    container_name: postgres
+    env_file: .env
+    ports:
+      - '5555:5432'
+
+  pgAdmin:
+    image: dpage/pgadmin4:latest
+    container_name: pgadmin
+    depends_on:
+      - postgres_service
+    ports:
+      - '16555:80'
+    environment:
+      PGADMIN_DEFAULT_EMAIL: dev@mail.ru
+      PGADMIN_DEFAULT_PASSWORD: dev
+    logging:
+      driver: none
